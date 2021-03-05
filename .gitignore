@@ -3,6 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+appsettings.json
+
 # User-specific files
 *.rsuser
 *.suo
@@ -431,6 +433,8 @@ $RECYCLE.BIN/
 # JetBrains Rider
 .idea/
 *.sln.iml
+.idea
+.vs
 
 ##
 ## Visual Studio Code
