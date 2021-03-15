@@ -1,7 +1,6 @@
 ﻿using Application.Activities;
 using Application.Core;
 using Application.Interfaces;
-using Infrastructure.Interfaces;
 using Infrastructure.Photos;
 using Infrastructure.Security;
 using MediatR;

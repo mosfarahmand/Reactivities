@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Application.Core;
 using Application.Interfaces;
 using Domain;
-using Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
