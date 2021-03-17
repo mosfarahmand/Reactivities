@@ -10,26 +10,35 @@ export default observer(function NavBar() {
     const history = useHistory();
     const handleOnClick = useCallback(() => history.push(`/createActivity`), [history]);
 
-
     const items = [
-
         {
             label: 'Activities',
             icon: 'pi pi-fw pi-briefcase',
             command: (e) => {
-                window.location.hash = "/activities"
+                history.push(`/activities`)
             }
+        },
+        {
+            label: 'Users',
+            icon: 'pi pi-fw pi-user',
+            items: [
+                {
+                    label: 'Profile',
+                    icon: 'pi pi-fw pi-check-circle',
+                    command: (e) => {
+                        history.push(`/profile/${user?.username}`)
+                    }
+                }]
         }
     ];
 
     const {userStore: {user, logout}} = useStore();
-
     const start = <img alt="logo" src="/assets/logo.png"
                        height="40" className="p-mr-2"></img>;
     const end =
         <div>
             <Button label="New Activity" icon="pi pi-calendar-plus" style={{marginRight: 5}}
-                    className="p-button-success" onClick={handleOnClick }/>
+                    className="p-button-success" onClick={handleOnClick}/>
             <Button label="Logout" icon="pi pi-power-off" onClick={logout} className="p-button-secondary"/>
         </div>;
 
@@ -37,27 +46,5 @@ export default observer(function NavBar() {
         <div>
             <Menubar model={items} start={start} end={end}/>
         </div>
-        /*<Menu inverted fixed='top'>
-            <Container>
-                <Menu.Item as={NavLink} to='/' exact header>
-                    <img src='/assets/logo.png' alt='logo' style={{marginRight: '10px'}}/>
-                    Reactivities
-                </Menu.Item>
-                <Menu.Item as={NavLink} to='/activities' name='Activities'/>
-                <Menu.Item as={NavLink} to='/errors' name='Errors'/>
-                <Menu.Item>
-                    <Button as={NavLink} to='/createActivity' positive content='Create Activity'/>
-                </Menu.Item>
-                <Menu.Item position='right'>
-                    <Image src={user?.image || '/assets/user.png'} avatar spaced='right'/>
-                    <Dropdown pointing='top left' text={user?.displayName}>
-                        <Dropdown.Menu>
-                            <Dropdown.Item as={Link} to={`/profile/${user?.username}`} text='Profile' icon='user'/>
-                            <Dropdown.Item onClick={logout} text='Logout' icon='power'/>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Menu.Item>
-            </Container>
-        </Menu>*/
     )
 })
