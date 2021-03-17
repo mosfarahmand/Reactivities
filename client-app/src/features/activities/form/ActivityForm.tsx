@@ -7,11 +7,8 @@ import {v4 as uuid} from 'uuid';
 import {Activity} from "../../../app/models/activity";
 import {InputText} from 'primereact/inputtext';
 import {InputTextarea} from 'primereact/inputtextarea';
-import {Panel} from 'primereact/panel';
 import {Calendar} from "primereact/calendar";
 import { Fieldset } from 'primereact/fieldset';
-
-
 import 'primeflex/primeflex.css';
 import {Button} from "primereact/button";
 
@@ -29,7 +26,6 @@ export default observer(function ActivityForm() {
         city: '',
         venue: ''
     });
-
 
     useEffect(() => {
         if (id) loadActivity(id).then(activity => setActivity(activity!));
@@ -50,8 +46,6 @@ export default observer(function ActivityForm() {
             })
         }
     }
-
-
     if (loadingInitial) return <LoadingComponent content='Loading activity...'/>
 
     return (
@@ -62,22 +56,18 @@ export default observer(function ActivityForm() {
                         <label htmlFor="title">Title</label>
                         <InputText id="title" type="text" name='title'/>
                     </div>
-
                     <div className="p-field p-col-12">
                         <label htmlFor="description">Description</label>
                         <InputTextarea id="Description" type="text" name='description'/>
                     </div>
-
                     <div className="p-field p-col-12 p-md-4">
                         <label htmlFor="date">Date</label>
                         <Calendar id="date" name='date' showTime showSeconds></Calendar>
                     </div>
-
                     <div className="p-field p-col-12 p-md-4">
                         <label htmlFor="city">City</label>
                         <InputText id="city" type="text" name='city'/>
                     </div>
-
                     <div className="p-field p-col-12 p-md-4">
                         <label htmlFor="venue">Venue</label>
                         <InputText id="venue" type="text" name='venue'/>

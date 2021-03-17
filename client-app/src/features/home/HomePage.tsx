@@ -11,7 +11,7 @@ export default observer(function HomePage() {
     return (
         <Segment inverted textAlign='center' vertical className='masthead'>
             <Container text>
-                <Header as='h1' inverted>
+                <Header as='h1' inverted style={{color: "white", background: "#1b1c1d"}}>
                     <Image size='massive' src='/assets/logo.png' alt='Logo' style={{marginBottom: 12}}/>
                     Reactivities
                 </Header>
