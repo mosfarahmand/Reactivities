@@ -74,8 +74,8 @@ export default class ActivityStore {
             activity.isGoing = activity.attendees!.some(
                 a => a.username === user.username
             )
-            activity.isHost = activity.hostUserNam === user.username;
-            activity.host = activity.attendees?.find(x => x.username === activity.hostUserNam);
+            activity.isHost = activity.hostUserName === user.username;
+            activity.host = activity.attendees?.find(x => x.username === activity.hostUserName);
         }
         activity.date = new Date(activity.date!);
         this.activityRegistry.set(activity.id, activity);

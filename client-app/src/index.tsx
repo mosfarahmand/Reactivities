@@ -10,6 +10,9 @@ import 'react-calendar/dist/Calendar.css'
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import {createBrowserHistory} from 'history'
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 export const history = createBrowserHistory();
 

@@ -1,4 +1,4 @@
-import { observer } from 'mobx-react-lite';
+import {observer} from 'mobx-react-lite';
 import React from 'react'
 import {Segment, Grid, Icon} from 'semantic-ui-react'
 import {Activity} from "../../../app/models/activity";
@@ -14,7 +14,7 @@ export default observer(function ActivityDetailedInfo({activity}: Props) {
             <Segment attached='top'>
                 <Grid>
                     <Grid.Column width={1}>
-                        <Icon size='large' color='teal' name='info'/>
+                        <i className="pi pi-info-circle" style={{fontSize: 20, color: "teal"}}></i>
                     </Grid.Column>
                     <Grid.Column width={15}>
                         <p>{activity.description}</p>
@@ -24,19 +24,19 @@ export default observer(function ActivityDetailedInfo({activity}: Props) {
             <Segment attached>
                 <Grid verticalAlign='middle'>
                     <Grid.Column width={1}>
-                        <Icon name='calendar' size='large' color='teal'/>
+                        <i className="pi pi-calendar" style={{fontSize: 20, color: "teal"}}></i>
                     </Grid.Column>
                     <Grid.Column width={15}>
-            <span>
-              {format(activity.date!, 'dd MM yyyy h:mm aa')}
-            </span>
+                        <span>
+                          {format(activity.date!, 'dd MM yyyy h:mm aa')}
+                        </span>
                     </Grid.Column>
                 </Grid>
             </Segment>
             <Segment attached>
                 <Grid verticalAlign='middle'>
                     <Grid.Column width={1}>
-                        <Icon name='marker' size='large' color='teal'/>
+                        <i className="pi pi-map-marker" style={{fontSize: 20, color: "teal"}}></i>
                     </Grid.Column>
                     <Grid.Column width={11}>
                         <span>{activity.venue}, {activity.city}</span>

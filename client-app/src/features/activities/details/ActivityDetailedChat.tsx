@@ -1,19 +1,11 @@
-import { observer } from 'mobx-react-lite'
+import {observer} from 'mobx-react-lite'
 import React from 'react'
 import {Segment, Header, Comment, Form, Button} from 'semantic-ui-react'
 
 export default observer(function ActivityDetailedChat() {
     return (
         <>
-            <Segment
-                textAlign='center'
-                attached='top'
-                inverted
-                color='teal'
-                style={{border: 'none'}}
-            >
-                <Header>Chat about this event</Header>
-            </Segment>
+            <Header style={{color: "black"}}>Chats about this event</Header>
             <Segment attached>
                 <Comment.Group>
                     <Comment>
