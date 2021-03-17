@@ -32,28 +32,18 @@ export default function ActivityListItem({activity}: Props) {
 
     console.log(activity.host?.username);
     return (
-
-        <div className="row">
-            <div className="leftcolumn">
-                <Card title={activity.title} subTitle={activity.venue} footer={footer}>
-                    <Icon name='calendar'/> {format(activity.date!, 'dd MM yyyy h:mm aa')}
-                    <br/>
-                    <br/>
-                    Hosted By
-                    <br/>
-                    <Chip label={activity.host?.username} image="/assets/user.png"/>
-                    <br/>
-                    <br/>
-                    {activity.description}
-                    <br/>
-                    <br/>
-                    {activity.isGoing && !activity.isHost && (
-                        <Tag severity="warning" className="p-mr-2" value=" You are going to this activity"></Tag>
-                    )}
-
-                </Card>
-            </div>
-        </div>
-
+        <Card title={activity.title} subTitle={activity.venue} footer={footer}>
+            <Icon name='calendar'/> {format(activity.date!, 'dd MM yyyy h:mm aa')}
+            <br/> <br/>
+            Hosted By
+            <br/>
+            <Chip label={activity.host?.username} image="/assets/user.png"/>
+            <br/> <br/>
+            {activity.description}
+            <br/> <br/>
+            {activity.isGoing && !activity.isHost && (
+                <Tag severity="warning" className="p-mr-2" value=" You are going to this activity"></Tag>
+            )}
+        </Card>
     )
 }

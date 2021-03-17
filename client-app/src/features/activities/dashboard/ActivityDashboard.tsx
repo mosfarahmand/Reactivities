@@ -19,13 +19,14 @@ export default observer(function ActivityDashboard() {
     if (activityStore.loadingInitial) return <LoadingComponent content={'loading activities'}/>
 
     return (
-        <Grid>
-            <Grid.Column width='10'>
+        <div className="row">
+            <div className="leftcolumn">
                 <ActivityList/>
-            </Grid.Column>
-            <Grid.Column width='6'>
-              <ActivityFilters/>
-            </Grid.Column>
-        </Grid>
+            </div>
+            <div className="rightcolumn">
+                <ActivityFilters/>
+            </div>
+        </div>
+
     )
 })

@@ -40,8 +40,7 @@ function App() {
                 render={() => (
                     <>
                         <NavBar/>
-
-                        <Container style={{marginTop: '7em'}}>
+                        <Container style={{marginTop: '2em'}}>
                             <Switch>
                                 <Route exact path='/activities' component={ActivityDashboard}/>
                                 <Route path='/activities/:id' component={ActivityDetails}/>
