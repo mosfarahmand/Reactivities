@@ -64,7 +64,7 @@ namespace Application.Activities
                     activity.Attendees.Add(attendance);
                 }
 
-                var result = await _context.SaveChangesAsync() > 0;
+                var result = await _context.SaveChangesAsync(cancellationToken) > 0;
                 return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Problem updating");
 
             }

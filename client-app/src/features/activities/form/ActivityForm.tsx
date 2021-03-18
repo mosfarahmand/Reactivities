@@ -4,33 +4,26 @@ import {observer} from "mobx-react-lite";
 import {useParams, useHistory} from "react-router-dom";
 import LoadingComponent from "../../../app/layout/loadingComponent";
 import {v4 as uuid} from 'uuid';
-import {Activity} from "../../../app/models/activity";
- import {InputTextarea} from 'primereact/inputtextarea';
- import {Fieldset} from 'primereact/fieldset';
+import {Activity, ActivityFormValues} from "../../../app/models/activity";
+import {InputTextarea} from 'primereact/inputtextarea';
+import {Fieldset} from 'primereact/fieldset';
 import 'primeflex/primeflex.css';
 import {Button} from "primereact/button";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import {Formik, Form} from 'formik';
 import * as Yup from 'yup';
 import MyDateInput from "../../../app/common/form/MyDateInput";
+import MyTextArea from "../../../app/common/form/MyTextArea";
 
 export default observer(function ActivityForm() {
     const history = useHistory();
     const {activityStore} = useStore();
 
-     const handleOnClick = useCallback(() => history.push('/activities'), [history]);
+    const handleOnClick = useCallback(() => history.push('/activities'), [history]);
 
     const {createActivity, updateActivity, loading, loadActivity, loadingInitial} = activityStore;
     const {id} = useParams<{ id: string }>();
-    const [activity, setActivity] = useState<Activity>({
-        id: '',
-        title: '',
-        category: '',
-        description: '',
-        date: null,
-        city: '',
-        venue: ''
-    });
+    const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
 
     const validationSchema = Yup.object({
         title: Yup.string().required('The activity title is required'),
@@ -42,11 +35,11 @@ export default observer(function ActivityForm() {
     })
 
     useEffect(() => {
-        if (id) loadActivity(id).then(activity => setActivity(activity!));
+        if (id) loadActivity(id).then(activity => setActivity(new ActivityFormValues(activity)));
     }, [id, loadActivity])
 
-    function handleFormSubmit(activity: Activity) {
-        if (activity.id.length === 0) {
+    function handleFormSubmit(activity: ActivityFormValues) {
+        if (!activity.id) {
             let newActivity = {
                 ...activity,
                 id: uuid()
@@ -78,17 +71,14 @@ export default observer(function ActivityForm() {
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="description">Description</label>
-                                    <InputTextarea id="Description" type="text" name='description'/>
+                                     <MyTextArea placeholder='Description' name='description' rows={2}/>
                                 </div>
+
                                 <div className="p-field p-col-12 p-md-4">
-                                    <label htmlFor="date">Date</label>
-                                    <MyDateInput
-                                        placeholderText='Date' name='date'
-                                        showTimeSelect
-                                        timeCaption='time'
-                                        dateFormat='MMMM d, yyyy h:mm aa'
-                                    />
+                                    <label htmlFor="category">Category</label>
+                                    <MyTextInput placeholder='Category' name='category'/>
                                 </div>
+
                                 <div className="p-field p-col-12 p-md-4">
                                     <label htmlFor="city">City</label>
                                     <MyTextInput placeholder='City' name='city'/>
@@ -97,9 +87,19 @@ export default observer(function ActivityForm() {
                                     <label htmlFor="venue">Venue</label>
                                     <MyTextInput placeholder='Venue' name='venue'/>
                                 </div>
+
+                                <div className="p-field p-col-12 ">
+                                    <label htmlFor="date">Date</label>
+                                    <MyDateInput
+                                        placeholderText='Date' name='date'
+                                        showTimeSelect
+                                        timeCaption='time'
+                                        dateFormat='MMMM d, yyyy h:mm aa'
+                                    />
+                                </div>
                             </div>
                             <Button disabled={isSubmitting || !dirty || !isValid} label="Save" icon="pi pi-save"
-                                    style={{float: 'right'}} loading={loading}
+                                    style={{float: 'right'}} loading={isSubmitting}
                                     className="p-button-success"/>
                             <Button label="Cancel" icon="pi pi-times" style={{marginRight: 5, float: 'right'}}
                                     className="p-button-warning" onClick={handleOnClick}/>

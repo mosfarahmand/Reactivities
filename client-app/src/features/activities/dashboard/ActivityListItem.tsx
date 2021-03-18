@@ -3,7 +3,7 @@ import {format} from "date-fns";
 import ActivityListItemAttendee from "./ActivityListItemAttendee";
 import {Card} from 'primereact/card';
 import {Button} from 'primereact/button'
-import {Icon} from "semantic-ui-react";
+import {Icon, Label} from "semantic-ui-react";
 import {Chip} from 'primereact/chip';
 import {Tag} from 'primereact/tag';
 import {useHistory} from 'react-router-dom';
@@ -30,19 +30,25 @@ export default function ActivityListItem({activity}: Props) {
         </div>
     ;
 
-    console.log(activity.host?.username);
     return (
         <Card title={activity.title} subTitle={activity.venue} footer={footer}>
-            <Icon name='calendar'/> {format(activity.date!, 'dd MM yyyy h:mm aa')}
-            <br/> <br/>
-            Hosted By
-            <br/>
-            <Chip label={activity.host?.username} image="/assets/user.png"/>
-            <br/> <br/>
-            {activity.description}
-            <br/> <br/>
+            {activity.isCancelled &&
+            <Tag severity="danger" value='Cancelled' style={{textAlign: 'center', width: '100%', marginBottom: 3}}/>
+            }
+            <Icon name='calendar' style={{marginBottom: 20}}/> {format(activity.date!, 'dd MM yyyy h:mm aa')}
+            <div style={{marginBottom: 20}}>
+                Hosted By
+            </div>
+            <Chip label={activity.host?.displayName} image={activity.host?.image || '/assets/user.png'}
+                  style={{marginBottom: 20}}/>
+            <div style={{marginBottom: 20}}>
+                {activity.description}
+            </div>
             {activity.isGoing && !activity.isHost && (
                 <Tag severity="warning" className="p-mr-2" value=" You are going to this activity"></Tag>
+            )}
+            {activity.isHost && (
+                <Tag severity="info" className="p-mr-2" value=" You are hosting this activity"></Tag>
             )}
         </Card>
     )
