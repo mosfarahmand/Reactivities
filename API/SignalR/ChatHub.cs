@@ -23,7 +23,7 @@ namespace API.SignalR
                 .SendAsync("ReceiveComment", comment.Value);
         }
 
-        public async Task OnConnectAsync()
+        public override async Task OnConnectedAsync()
         {
             var httpContext = Context.GetHttpContext();
             var activityId = httpContext.Request.Query["activityId"];

@@ -36,7 +36,8 @@ namespace API.Extensions
                             .WithOrigins("http://localhost:3000")
                             .SetIsOriginAllowed((host) => true)
                             .AllowAnyMethod()
-                            .AllowAnyHeader();
+                            .AllowAnyHeader()
+                            .AllowCredentials();
                     });
             });
 
