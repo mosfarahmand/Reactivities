@@ -1,12 +1,11 @@
 import {observer} from 'mobx-react-lite';
-import React from 'react'
-import {Activity} from "../../../app/models/activity";
+import React, {useCallback} from 'react'
+import {Activity} from '../../../app/models/activity';
 import {Card} from 'primereact/card';
 import {Button} from 'primereact/button';
 import {useHistory} from 'react-router-dom';
-import {useCallback} from "react";
-import {useStore} from "../../../app/stores/store";
-import {Label} from "semantic-ui-react";
+import {useStore} from '../../../app/stores/store';
+import {Label} from 'semantic-ui-react';
 
 
 interface Props {
@@ -34,7 +33,7 @@ export default observer(function ActivityDetailedHeader({activity}: Props) {
                      <Button icon="pi pi-check" floated='right'
                              className={activity.isCancelled ? 'p-button-success' : 'p-button-danger'}
                              onClick={cancelActivityToggle}
-                             style={{width: '20%', marginRight:5}}
+                             style={{width: '20%', marginRight: 5}}
                              loading={loading}
                      >
                          {activity.isCancelled ? "Re-Activate" : "Cancel Activity"}

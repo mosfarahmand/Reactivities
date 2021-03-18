@@ -1,13 +1,13 @@
-import {Activity} from "../../../app/models/activity";
-import {format} from "date-fns";
-import ActivityListItemAttendee from "./ActivityListItemAttendee";
+import {Activity} from '../../../app/models/activity';
+import {format} from 'date-fns';
+import ActivityListItemAttendee from './ActivityListItemAttendee';
 import {Card} from 'primereact/card';
 import {Button} from 'primereact/button'
-import {Icon, Label} from "semantic-ui-react";
+import {Icon} from 'semantic-ui-react';
 import {Chip} from 'primereact/chip';
 import {Tag} from 'primereact/tag';
 import {useHistory} from 'react-router-dom';
-import {useCallback} from "react";
+import {useCallback} from 'react';
 
 interface Props {
     activity: Activity

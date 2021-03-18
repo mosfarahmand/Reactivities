@@ -26,7 +26,7 @@ export default observer(function NavBar() {
                     label: 'Profile',
                     icon: 'pi pi-fw pi-check-circle',
                     command: (e) => {
-                        history.push(`/profile/${user?.username}`)
+                        history.push(`/profiles/${user?.username}`)
                     }
                 }]
         }

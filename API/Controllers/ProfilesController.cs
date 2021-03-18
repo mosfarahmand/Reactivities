@@ -10,7 +10,7 @@ namespace API.Controllers
         [HttpGet("{username}")]
         public async Task<IActionResult> GetProfile(string username)
         {
-            return HandleResult(await Mediator.Send(new ProfileDetails.Query {Username = username}));
+            return HandleResult(await Mediator.Send(new Application.Profiles.Details.Query {Username = username}));
         }
     }
 }
