@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
 import {useParams, useHistory} from "react-router-dom";
@@ -8,13 +8,20 @@ import {Activity} from "../../../app/models/activity";
 import {InputText} from 'primereact/inputtext';
 import {InputTextarea} from 'primereact/inputtextarea';
 import {Calendar} from "primereact/calendar";
-import { Fieldset } from 'primereact/fieldset';
+import {Fieldset} from 'primereact/fieldset';
 import 'primeflex/primeflex.css';
 import {Button} from "primereact/button";
+import MyTextInput from "../../../app/common/form/MyTextInput";
+import {Formik, Form} from 'formik';
+import * as Yup from 'yup';
+import MyDateInput from "../../../app/common/form/MyDateInput";
 
 export default observer(function ActivityForm() {
     const history = useHistory();
     const {activityStore} = useStore();
+
+     const handleOnClick = useCallback(() => history.push('/activities'), [history]);
+
     const {createActivity, updateActivity, loading, loadActivity, loadingInitial} = activityStore;
     const {id} = useParams<{ id: string }>();
     const [activity, setActivity] = useState<Activity>({
@@ -26,6 +33,15 @@ export default observer(function ActivityForm() {
         city: '',
         venue: ''
     });
+
+    const validationSchema = Yup.object({
+        title: Yup.string().required('The activity title is required'),
+        description: Yup.string().required('The activity description is required'),
+        category: Yup.string().required(),
+        date: Yup.string().required('Date is required').nullable(),
+        city: Yup.string().required(),
+        venue: Yup.string().required(),
+    })
 
     useEffect(() => {
         if (id) loadActivity(id).then(activity => setActivity(activity!));
@@ -46,66 +62,53 @@ export default observer(function ActivityForm() {
             })
         }
     }
+
     if (loadingInitial) return <LoadingComponent content='Loading activity...'/>
 
     return (
         <div className="p-d-flex">
-            <Fieldset legend="Activity Details">
-                <div className="p-fluid p-formgrid p-grid">
-                    <div className="p-field p-col-12">
-                        <label htmlFor="title">Title</label>
-                        <InputText id="title" type="text" name='title'/>
-                    </div>
-                    <div className="p-field p-col-12">
-                        <label htmlFor="description">Description</label>
-                        <InputTextarea id="Description" type="text" name='description'/>
-                    </div>
-                    <div className="p-field p-col-12 p-md-4">
-                        <label htmlFor="date">Date</label>
-                        <Calendar id="date" name='date' showTime showSeconds></Calendar>
-                    </div>
-                    <div className="p-field p-col-12 p-md-4">
-                        <label htmlFor="city">City</label>
-                        <InputText id="city" type="text" name='city'/>
-                    </div>
-                    <div className="p-field p-col-12 p-md-4">
-                        <label htmlFor="venue">Venue</label>
-                        <InputText id="venue" type="text" name='venue'/>
-                    </div>
-                </div>
-                <Button label="Save" icon="pi pi-save" style={{ float: 'right'}}
-                        className="p-button-success" />
-                <Button label="Cancel" icon="pi pi-times" style={{ marginRight: 5, float: 'right'}}
-                        className="p-button-warning" />
-            </Fieldset>
+            <Formik validationSchema={validationSchema} enableReinitialize
+                    initialValues={activity}
+                    onSubmit={values => handleFormSubmit(values)}>
+                {({handleSubmit, isValid, isSubmitting, dirty}) => (
+                    <Fieldset legend="Activity Details">
+                        <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
+                            <div className="p-fluid p-formgrid p-grid">
+                                <div className="p-field p-col-12">
+                                    <label htmlFor="title">Title</label>
+                                    <MyTextInput placeholder='Title' name='title'/>
+                                </div>
+                                <div className="p-field p-col-12">
+                                    <label htmlFor="description">Description</label>
+                                    <InputTextarea id="Description" type="text" name='description'/>
+                                </div>
+                                <div className="p-field p-col-12 p-md-4">
+                                    <label htmlFor="date">Date</label>
+                                    <MyDateInput
+                                        placeholderText='Date' name='date'
+                                        showTimeSelect
+                                        timeCaption='time'
+                                        dateFormat='MMMM d, yyyy h:mm aa'
+                                    />
+                                </div>
+                                <div className="p-field p-col-12 p-md-4">
+                                    <label htmlFor="city">City</label>
+                                    <MyTextInput placeholder='City' name='city'/>
+                                </div>
+                                <div className="p-field p-col-12 p-md-4">
+                                    <label htmlFor="venue">Venue</label>
+                                    <MyTextInput placeholder='Venue' name='venue'/>
+                                </div>
+                            </div>
+                            <Button disabled={isSubmitting || !dirty || !isValid} label="Save" icon="pi pi-save"
+                                    style={{float: 'right'}} loading={loading}
+                                    className="p-button-success"/>
+                            <Button label="Cancel" icon="pi pi-times" style={{marginRight: 5, float: 'right'}}
+                                    className="p-button-warning" onClick={handleOnClick}/>
+                        </Form>
+                    </Fieldset>
+                )}
+            </Formik>
         </div>
-        // <Segment clearing>
-        //     <Header content='Activity Details' sub color='teal'/>
-        //     <Formik validationSchema={validationSchema} enableReinitialize
-        //             initialValues={activity}
-        //             onSubmit={values => handleFormSubmit(values)}>
-        //         {({handleSubmit, isValid, isSubmitting, dirty}) => (
-        //             <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
-        //                 <MyTextInput placeholder='Title' name='title'/>
-        //                 <MyTextArea rows={3} placeholder='Description' name='description'/>
-        //                 <MySelectInput options={CategoryOptions} placeholder='Category' name='category'/>
-        //                 <MyDateInput
-        //                     placeholderText='Date' name='date'
-        //                     showTimeSelect
-        //                     timeCaption='time'
-        //                     dateFormat='MMMM d, yyyy h:mm aa'
-        //                 />
-        //                 <Header content='Location Details' sub color='teal'/>
-        //                 <MyTextInput placeholder='City' name='city'/>
-        //                 <MyTextInput placeholder='Venue' name='venue'/>
-        //                 <Button
-        //                     disabled={isSubmitting || !dirty || !isValid}
-        //                     loading={loading} floated='right'
-        //                     positive type='submit' content='Submit'/>
-        //                 <Button as={Link} to='/activities' floated='right' type='button' content='Cancel'/>
-        //             </Form>
-        //         )}
-        //     </Formik>
-        // </Segment>
     )
 })

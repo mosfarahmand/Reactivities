@@ -1,6 +1,7 @@
 import React from "react";
 import {useField} from "formik";
 import {FormField, Label} from "semantic-ui-react";
+import {InputText} from "primereact/inputtext";
 
 interface Props{
     placeholder: string;
@@ -14,9 +15,9 @@ export default function MyTextInput(props: Props){
     return(
         <FormField error={meta.touched && !!meta.error}>
             <label>{props.label}</label>
-            <input {...field} {...props}/>
+            <InputText {...field} {...props} className="p-invalid"/>
             {meta.touched && meta.error ? (
-                <Label basic color='red'>{meta.error}</Label>
+                 <Label basic color='red'  >{meta.error}</Label>
             ): null}
         </FormField>
     )
