@@ -13,17 +13,16 @@ import {Formik, Form} from 'formik';
 import * as Yup from 'yup';
 import MyDateInput from "../../../app/common/form/MyDateInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
+import MySelectInput from "../../../app/common/form/MySelectInput";
+import {CategoryOptions} from "../../../app/common/options/CategoryOptions";
 
 export default observer(function ActivityForm() {
     const history = useHistory();
     const {activityStore} = useStore();
-
     const handleOnClick = useCallback(() => history.push('/activities'), [history]);
-
     const {createActivity, updateActivity, loadActivity, loadingInitial} = activityStore;
     const {id} = useParams<{ id: string }>();
     const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
-
     const validationSchema = Yup.object({
         title: Yup.string().required('The activity title is required'),
         description: Yup.string().required('The activity description is required'),
@@ -70,12 +69,12 @@ export default observer(function ActivityForm() {
                                 </div>
                                 <div className="p-field p-col-12">
                                     <label htmlFor="description">Description</label>
-                                     <MyTextArea placeholder='Description' name='description' rows={2}/>
+                                    <MyTextArea placeholder='Description' name='description' rows={2}/>
                                 </div>
 
                                 <div className="p-field p-col-12 p-md-4">
                                     <label htmlFor="category">Category</label>
-                                    <MyTextInput placeholder='Category' name='category'/>
+                                    <MySelectInput options={CategoryOptions} placeholder='Category' name='category'/>
                                 </div>
 
                                 <div className="p-field p-col-12 p-md-4">
