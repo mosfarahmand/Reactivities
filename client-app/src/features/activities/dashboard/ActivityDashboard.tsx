@@ -7,6 +7,8 @@ import ActivityFilters from "./ActivityFilters";
 import {PagingParams} from "../../../app/models/pagination";
 import InfiniteScroll from 'react-infinite-scroller';
 import {Grid, Loader} from "semantic-ui-react";
+import ActivityListItem from "./ActivityListItem";
+import ActivityListItemPlaceholder from "./ActivityListItemPlaceholder";
 
 export default observer(function ActivityDashboard() {
     const {activityStore} = useStore();
@@ -24,19 +26,26 @@ export default observer(function ActivityDashboard() {
     }, [activityRegistry.size, loadActivities]);
 
 
-    if (activityStore.loadingInitial && !loadingNext) return <LoadingComponent content={'loading activities'}/>
+    // if (activityStore.loadingInitial && !loadingNext) return <LoadingComponent content={'loading activities'}/>
 
     return (
         <div className="row">
             <div className="leftcolumn">
-                <InfiniteScroll
-                    pageStart={0}
-                    loadMore={handleGetNext}
-                    hasMore={!loadingNext && !!pagination && pagination.currentPage < pagination.totalPages}
-                    initialLoad={false}
-                >
-                    <ActivityList/>
-                </InfiniteScroll>
+                {activityStore.loadingInitial && !loadingNext ? (
+                    <>
+                        <ActivityListItemPlaceholder/>
+                        <ActivityListItemPlaceholder/>
+                    </>
+                ) : (
+                    <InfiniteScroll
+                        pageStart={0}
+                        loadMore={handleGetNext}
+                        hasMore={!loadingNext && !!pagination && pagination.currentPage < pagination.totalPages}
+                        initialLoad={false}
+                    >
+                        <ActivityList/>
+                    </InfiniteScroll>
+                )}
 
                 {/*<Button*/}
                 {/*    floated='right'*/}
