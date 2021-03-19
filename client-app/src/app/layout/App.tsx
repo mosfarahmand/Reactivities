@@ -22,26 +22,28 @@ function App() {
     const {commonsStore, userStore} = useStore();
 
     useEffect(() => {
-        if(commonsStore.token){
+        if (commonsStore.token) {
             userStore.getUser().finally(() => commonsStore.setAppLoaded());
         } else {
             commonsStore.setAppLoaded();
         }
     }, [commonsStore, userStore])
 
-    if(!commonsStore.appLoaded) return <LoadingComponent content='Loading app...'/>
+    if (!commonsStore.appLoaded) return <LoadingComponent content='Loading app...'/>
 
     return (
         <>
             <ToastContainer position='bottom-right' hideProgressBar/>
-            <ModalContainer />
+            <ModalContainer/>
             <Route exact path='/' component={HomePage}/>
             <Route
                 path={'/(.+)'}
                 render={() => (
                     <>
-                        <NavBar/>
-                        <Container style={{marginTop: '2em'}}>
+                        <div className="header">
+                            <NavBar/>
+                        </div>
+                        <Container style={{marginTop: '2em', marginBottom: '2em'}}>
                             <Switch>
                                 <Route exact path='/activities' component={ActivityDashboard}/>
                                 <Route path='/activities/:id' component={ActivityDetails}/>
@@ -54,6 +56,9 @@ function App() {
                                 <Route component={NotFound}/>
                             </Switch>
                         </Container>
+                        <div className="footer">
+                            <h4>2021 © Reactivities by Mos</h4>
+                        </div>
                     </>
                 )}
             />

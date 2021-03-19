@@ -19,6 +19,7 @@ export default function MySelectInput(props: Props){
                     onChange={(e,d) => helpers.setValue(d.value)}
                     onBlur={()=> helpers.setTouched(true)}
                     placeholder={props.placeholder}
+                    className="p-multiselect p-component p-inputwrapper"
             />
             {meta.touched && meta.error ? (
                 <Label basic color='red'>{meta.error}</Label>

@@ -6,10 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import 'semantic-ui-css/semantic.min.css'
 import {store, StoreContext} from './app/stores/store';
 import {Router} from "react-router-dom";
- import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import {createBrowserHistory} from 'history'
-import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/themes/vela-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
