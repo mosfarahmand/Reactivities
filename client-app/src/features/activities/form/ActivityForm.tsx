@@ -4,8 +4,7 @@ import {observer} from "mobx-react-lite";
 import {useParams, useHistory} from "react-router-dom";
 import LoadingComponent from "../../../app/layout/loadingComponent";
 import {v4 as uuid} from 'uuid';
-import {Activity, ActivityFormValues} from "../../../app/models/activity";
-import {InputTextarea} from 'primereact/inputtextarea';
+import {ActivityFormValues} from "../../../app/models/activity";
 import {Fieldset} from 'primereact/fieldset';
 import 'primeflex/primeflex.css';
 import {Button} from "primereact/button";
@@ -21,7 +20,7 @@ export default observer(function ActivityForm() {
 
     const handleOnClick = useCallback(() => history.push('/activities'), [history]);
 
-    const {createActivity, updateActivity, loading, loadActivity, loadingInitial} = activityStore;
+    const {createActivity, updateActivity, loadActivity, loadingInitial} = activityStore;
     const {id} = useParams<{ id: string }>();
     const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
 
