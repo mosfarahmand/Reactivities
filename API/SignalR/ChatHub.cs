@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Application.Comments;
-using Domain;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 
