@@ -10,12 +10,12 @@ namespace API.Controllers
     public class ActivitiesController : BaseApiController
     {
         [HttpGet]
-        public async Task<IActionResult> GetActivities([FromQuery]ActivityParams param)
+        public async Task<IActionResult> GetActivities([FromQuery] ActivityParams param)
         {
             return HandlePagedResult(await Mediator.Send(new List.Query {Params = param}));
         }
 
-        [HttpGet("{id}")]
+       [HttpGet("{id}")]
         public async Task<ActionResult<Activity>> GetActivity(Guid id)
         {
             return HandleResult(await Mediator.Send(new Details.Query {Id = id}));
@@ -45,7 +45,7 @@ namespace API.Controllers
         [HttpPost("{id}/attend")]
         public async Task<IActionResult> Attend(Guid id)
         {
-            return HandleResult(await Mediator.Send(new UpdateAttendance.Command{Id= id}));
+            return HandleResult(await Mediator.Send(new UpdateAttendance.Command {Id = id}));
         }
     }
 }
