@@ -24,7 +24,7 @@ dotnet tool install --global dotnet-ef --version 5.0.4
 ```
 
 For imaage handling create account in https://cloudinary.com/. 
-Add the details in appsetting.json 
+Add the details in appsettings.json 
 
 example: 
 ```console
